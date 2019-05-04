@@ -1,5 +1,5 @@
-github.com/gearboxworks/go-status v0.0.0-20190504155612-076515a2f28b h1:LcpTkzZ5QYHNIb7NYBUwDTKfczuLOXVxsLhv8crnyVY=
-github.com/gearboxworks/go-status v0.0.0-20190504155612-076515a2f28b/go.mod h1:yePXNHWbtPdshFvB/ve6U8/QTsulhqmAdTBMOF1okIQ=
+github.com/gearboxworks/go-status v0.0.0-20190504203300-65e2ecd9d5ca h1:bOvbF566U2VqIHpW9LqKiqfhQZDYS+7eDhQWz2mKmh0=
+github.com/gearboxworks/go-status v0.0.0-20190504203300-65e2ecd9d5ca/go.mod h1:yePXNHWbtPdshFvB/ve6U8/QTsulhqmAdTBMOF1okIQ=
 github.com/spf13/cobra v0.0.3 h1:ZlrZ4XsMRm04Fr5pSFxBgfND2EBVa1nLpiy1stUsX/8=
 github.com/spf13/cobra v0.0.3/go.mod h1:1l0Ry5zgKvJasoi3XT1TypsSe7PqH0Sj9dhYf7v3XqQ=
 github.com/spf13/pflag v1.0.3 h1:zPAT6CGy6wXeQ7NtTnaTerfKOsV6V6F8agHXFiazDkg=
