@@ -11,7 +11,6 @@ const (
 	ZipSubdirectory       Subdirectory = "zips"
 	ChangelogSubdirectory Subdirectory = "changelogs"
 	MissingSubdirectory   Subdirectory = "missing"
-	TempSubdirectory      Subdirectory = "temp"
 )
 
 var Subdirectories = []string{
@@ -20,7 +19,6 @@ var Subdirectories = []string{
 	ZipSubdirectory,
 	ChangelogSubdirectory,
 	MissingSubdirectory,
-	TempSubdirectory,
 }
 
 const (
