@@ -76,6 +76,10 @@ func Download(args *global.Args) (sts status.Status) {
 		start := time.Now()
 
 		for _, p := range plugins {
+			if len([]byte(p)) > 0 && p[0] == '%' {
+				// If first char is '%', not a real plugin; skip it
+				continue
+			}
 			mfp := GetMissingPluginMarkerFilepath(p, args)
 			if util.FileExists(mfp) {
 				fmt.Printf("Skipping %s - previously found missing.\n", p)
@@ -118,6 +122,36 @@ func Download(args *global.Args) (sts status.Status) {
 		log.Printf("Downloading %d plugins took %s\n", len(plugins), elapsed.String())
 		repo.PutLastSyncedRevision(args.LastRev)
 
+	}
+	return sts
+}
+
+func GetMissingPluginMarkerFilepath(plugin string, args *global.Args) string {
+	return fmt.Sprintf("%s/%s/%s.missing",
+		args.Basedir,
+		global.MissingSubdirectory,
+		plugin,
+	)
+}
+
+func EnsureDirs(dir string, subdirs global.Strings) (sts status.Status) {
+	for range only.Once {
+		err := os.Mkdir(dir, 0777)
+		if err != nil && !os.IsExist(err) {
+			sts = status.Wrap(err, &status.Args{
+				Message: fmt.Sprintf("unable to make directory '%s'", dir),
+			})
+			break
+		}
+		for _, sd := range subdirs {
+			sts = EnsureDirs(
+				filepath.FromSlash(fmt.Sprintf("%s/%s", dir, sd)),
+				global.Strings{},
+			)
+			if is.Error(sts) {
+				break
+			}
+		}
 	}
 	return sts
 }
