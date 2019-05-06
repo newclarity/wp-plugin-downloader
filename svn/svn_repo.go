@@ -80,7 +80,6 @@ func (me *Repo) PutLastSyncedRevision(lastrev int) {
 
 func (me *Repo) GetLastSyncedRevision() (rev int, sts status.Status) {
 	for range only.Once {
-		rev = 0
 		fp := me.GetLastSyncedRevisionFilepath()
 		if !util.FileExists(fp) {
 			break
@@ -93,7 +92,8 @@ func (me *Repo) GetLastSyncedRevision() (rev int, sts status.Status) {
 		}
 		rev, err = strconv.Atoi(string(b))
 		if err != nil {
-			sts = status.Wrap(err, &status.Args{}).SetMessage("could not convert last revision to int").
+			sts = status.Wrap(err).
+				SetMessage("could not convert last revision to int").
 				SetSuccess(true) // no need to fail if we can't read this file
 			break
 		}
@@ -159,7 +159,7 @@ func (me *Repo) GetPartialSubdirList(args *global.Args) (sds global.Strings, sts
 		fp := me.GetChangeLogFilepath()
 		err := ioutil.WriteFile(fp, body, os.ModePerm)
 		if err != nil {
-			sts = status.Wrap(err, &status.Args{}).SetMessage("cannot write to '%s': %s", fp, err.Error())
+			sts = status.Wrap(err).SetMessage("cannot write to '%s': %s", fp, err.Error())
 			break
 		}
 		r, _ := regexp.Compile(`\*\s+([^/]+).+?\((added|modified|deleted|moved|copied)\)`)
