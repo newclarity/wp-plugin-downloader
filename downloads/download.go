@@ -16,36 +16,6 @@ import (
 	"wp-plugin-downloader/util"
 )
 
-func GetMissingPluginMarkerFilepath(plugin string, args *global.Args) string {
-	return fmt.Sprintf("%s/%s/%s.missing",
-		args.Basedir,
-		global.MissingSubdirectory,
-		plugin,
-	)
-}
-
-func EnsureDirs(dir string, subdirs global.Strings) (sts status.Status) {
-	for range only.Once {
-		err := os.Mkdir(dir, 0777)
-		if err != nil && !os.IsExist(err) {
-			sts = status.Wrap(err, &status.Args{
-				Message: fmt.Sprintf("unable to make directory '%s'", dir),
-			})
-			break
-		}
-		for _, sd := range subdirs {
-			sts = EnsureDirs(
-				filepath.FromSlash(fmt.Sprintf("%s/%s", dir, sd)),
-				global.Strings{},
-			)
-			if is.Error(sts) {
-				break
-			}
-		}
-	}
-	return sts
-}
-
 func Download(args *global.Args) (sts status.Status) {
 	for range only.Once {
 		sts = EnsureDirs(args.Basedir, global.Subdirectories)
